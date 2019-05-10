@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">ReporteMantenimiento</string>
+    <string name="descripcion">Descripción</string>
+    <string name="solucion">Solución</string>
+    <string name="entrar">Entrar</string>
+    <string name="nuevo_reporte">Nuevo reporte</string>
+    <string name="reportes_de_mantenimiento">Reportes de mantenimiento</string>
+    <string name="detalles_de_reporte">Detalles de reporte</string>
+    <string name="guardar">Guardar</string>
+    <string name="title_activity_lista_reportes">ListaReportes</string>
+    <string name="asunto">Asunto</string>
+    <string name="solucion_">Solución: </string>
+    <string name="asunto_">Asunto:   </string>
+    <string name="descripcion_">Descripción:</string>
+    <string name="fecha_">Fecha:  </string>
+    <string name="tipo_">Tipo:</string>
+    <string name="estado_">Estado:</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="pagar">Pagar</string>
+    <string name="estado">Estado</string>
+    <string name="tipo">Tipo</string>
+    <string name="editar_reporte">Editar reporte</string>
+</resources>
