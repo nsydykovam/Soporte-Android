@@ -1,6 +1,8 @@
 package omniknow.soporte.reportemantenimiento;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +24,7 @@ import omniknow.soporte.reportemantenimiento.modelo.TipoMantenimiento;
 
 public class EditarReporte extends AppCompatActivity {
     Spinner sEstado, sTipo;
-    EditText etAsunto, etDescripcion, etSolucion;
+    EditText etAsunto, etDescripcion, etSolucion, etHoras;
     Button bGuardar;
 
     @Override
@@ -35,6 +37,7 @@ public class EditarReporte extends AppCompatActivity {
         etAsunto = (EditText) findViewById(R.id.etAsunto);
         etDescripcion = (EditText) findViewById(R.id.etDescripcion);
         etSolucion = (EditText) findViewById(R.id.etSolucion);
+        etHoras = (EditText) findViewById(R.id.etHoras);
         bGuardar = (Button) findViewById(R.id.bGuardar);
 
         cargarSpinner(sEstado, 0);
@@ -45,6 +48,7 @@ public class EditarReporte extends AppCompatActivity {
         etAsunto.setText(Constante.reporteActual.getAsunto());
         etDescripcion.setText(Constante.reporteActual.getDescripcion());
         etSolucion.setText(Constante.reporteActual.getSolucion());
+        etHoras.setText(String.valueOf(Constante.reporteActual.getHoras()));
     }
 
     public void cargarSpinner(Spinner spinner, int tipo) {
@@ -81,22 +85,63 @@ public class EditarReporte extends AppCompatActivity {
     }
 
     public void guardar(View v) {
-        ReporteMantenimientoDao reporteMantenimientoDao = new ReporteMantenimientoDao();
+        final ReporteMantenimientoDao reporteMantenimientoDao = new ReporteMantenimientoDao();
 
         int idEstadoReporte = sEstado.getSelectedItemPosition() + 1;
         String asunto = etAsunto.getText().toString();
         String descripcion = etDescripcion.getText().toString();
         String solucion = etSolucion.getText().toString();
+        int horas;
+        if(etHoras.getText().toString().equals(""))
+            horas = 0;
+        else
+            horas = Integer.parseInt(etHoras.getText().toString());
 
         Constante.reporteActual.setIdEstadoReporte(idEstadoReporte);
         Constante.reporteActual.setAsunto(asunto);
         Constante.reporteActual.setDescripcion(descripcion);
         Constante.reporteActual.setSolucion(solucion);
+        Constante.reporteActual.setHoras(horas);
 
-        reporteMantenimientoDao.cambio(this, Constante.reporteActual);
+        if(descripcion.equals("")) // Si la descripción está vacía
+            Toast.makeText(EditarReporte.this, "Falta una descripción del problema", Toast.LENGTH_LONG).show();
+        else if(solucion.equals("")) // Si la solución está vacía
+            if(idEstadoReporte == 1) { //Se marca como pendiente
+                reporteMantenimientoDao.cambio(this, Constante.reporteActual); // Actualizar
+                Toast.makeText(EditarReporte.this, "Reporte actualizado", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(EditarReporte.this, VerReporte.class);
+                startActivity(i);
+            }
+            else { // Se marca como resuelta
+                Toast.makeText(EditarReporte.this, "No hay solución para el reporte resuelto", Toast.LENGTH_LONG).show();
+            }
+        else { // Hay descripción y hay solución
+            if(idEstadoReporte == 1) { // Se marca como pendiente
+                new AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Editar reporte")
+                        .setMessage("El reporte será guardado como \"Resuelto\" porque tiene una solución.")
+                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Constante.reporteActual.setIdEstadoReporte(2); // Estado de "Resuelto"
+                                reporteMantenimientoDao.cambio(EditarReporte.this, Constante.reporteActual); // Actualizar
+                                Toast.makeText(EditarReporte.this, "Reporte actualizado", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(EditarReporte.this, VerReporte.class);
+                                startActivity(i);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+            }
+            else { // Se marca como resuelto
+                reporteMantenimientoDao.cambio(this, Constante.reporteActual); // Actualizar
+                Toast.makeText(EditarReporte.this, "Reporte actualizado", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(EditarReporte.this, VerReporte.class);
+                startActivity(i);
+            }
+        }
 
-        Toast.makeText(EditarReporte.this, "Reporte actualizado", Toast.LENGTH_LONG).show();
-        Intent i = new Intent(EditarReporte.this, VerReporte.class);
-        startActivity(i);
     }
 }

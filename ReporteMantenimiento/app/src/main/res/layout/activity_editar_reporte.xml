@@ -20,7 +20,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:id="@+id/tvTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tipo"
+                android:text="@string/tipo_"
                 android:layout_centerHorizontal="true" />
 
             <Spinner
@@ -53,7 +54,7 @@
                 android:id="@+id/tvEstado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estado"
+                android:text="@string/estado_"
                 android:layout_centerHorizontal="true" />
 
             <Spinner
@@ -62,6 +63,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tvHoras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/horas_"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/etHoras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:importantForAutofill="no" />
 
         </RelativeLayout>
 
@@ -91,6 +114,6 @@
         android:layout_height="wrap_content"
         android:text="@string/guardar"
         android:onClick="guardar"
-        android:layout_gravity="right"/>
+        android:layout_gravity="end"/>
 
 </LinearLayout>

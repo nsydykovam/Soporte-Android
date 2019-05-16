@@ -17,7 +17,7 @@ import omniknow.soporte.reportemantenimiento.extras.Constante;
 import omniknow.soporte.reportemantenimiento.modelo.ReporteMantenimiento;
 
 public class VerReporte extends AppCompatActivity {
-    TextView tvTitulo, tvFecha, tvTipo, tvEstado, tvDescripcion, tvSolucion;
+    TextView tvTitulo, tvFecha, tvTipo, tvEstado, tvDescripcion, tvSolucion, tvHoras;
     Button bPagar, bEditar;
 
     @Override
@@ -36,6 +36,7 @@ public class VerReporte extends AppCompatActivity {
         tvEstado = (TextView) findViewById(R.id.tvEstado);
         tvDescripcion = (TextView) findViewById(R.id.tvDescripcion);
         tvSolucion = (TextView) findViewById(R.id.tvSolucion);
+        tvHoras = (TextView) findViewById(R.id.tvHoras);
         bPagar = (Button) findViewById(R.id.bPagar);
         bEditar = (Button) findViewById(R.id.bEditar);
 
@@ -46,6 +47,7 @@ public class VerReporte extends AppCompatActivity {
         tvFecha.setText(reporteMantenimiento.getFecha().toString());
         tvTipo.setText(tipoMantenimientoDao.consulta(this, reporteMantenimiento.getIdTipoMantenimiento()).getNombre());
         tvEstado.setText(estadoReporteDao.consulta(this, reporteMantenimiento.getIdEstadoReporte()).getNombre());
+        tvHoras.setText(reporteMantenimiento.getHoras() + " ($" + 60*reporteMantenimiento.getHoras() + ")");
         tvDescripcion.setText(reporteMantenimiento.getDescripcion());
         if(reporteMantenimiento.getSolucion().equals(""))
             tvSolucion.setText("El problema no ha sido solucionado.");
@@ -85,7 +87,7 @@ public class VerReporte extends AppCompatActivity {
     }
 
     public void pagar(View view) {
-        if(Constante.reporteActual.getIdEstadoReporte() < 2)
+        if(Constante.reporteActual.getIdEstadoReporte() < 3) // Si el reporte no está cerrado (está antes que cerrado)
             new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Error al pagar reporte")

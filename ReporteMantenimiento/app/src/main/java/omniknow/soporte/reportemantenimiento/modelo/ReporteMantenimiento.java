@@ -12,8 +12,9 @@ public class ReporteMantenimiento {
     private String asunto;
     private String descripcion;
     private String solucion;
+    private int horas;
 
-    public ReporteMantenimiento(int idReporteMantenimiento, int idReporteEvento, int idEstadoReporte, int idTipoMantenimiento, int idUsuario, Timestamp fecha, String asunto, String descripcion, String solucion) {
+    public ReporteMantenimiento(int idReporteMantenimiento, int idReporteEvento, int idEstadoReporte, int idTipoMantenimiento, int idUsuario, Timestamp fecha, String asunto, String descripcion, String solucion, int horas) {
         this.idReporteMantenimiento = idReporteMantenimiento;
         this.idReporteEvento = idReporteEvento;
         this.idEstadoReporte = idEstadoReporte;
@@ -23,6 +24,7 @@ public class ReporteMantenimiento {
         this.asunto = asunto;
         this.descripcion = descripcion;
         this.solucion = solucion;
+        this.horas = horas;
     }
 
     public int getIdReporteMantenimiento() {
@@ -97,6 +99,14 @@ public class ReporteMantenimiento {
         this.solucion = solucion;
     }
 
+    public int getHoras() {
+        return horas;
+    }
+
+    public void setHoras(int horas) {
+        this.horas = horas;
+    }
+
     @Override
     public String toString() {
         return "ReporteMantenimiento{" +
@@ -109,6 +119,7 @@ public class ReporteMantenimiento {
                 ", asunto='" + asunto + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", solucion='" + solucion + '\'' +
+                ", horas=" + horas +
                 '}';
     }
 }

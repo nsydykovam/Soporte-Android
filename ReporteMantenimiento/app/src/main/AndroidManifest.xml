@@ -9,19 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AsignarProgramador"
+            android:label="@string/asignar_programador"/>
         <activity
-            android:name="omniknow.soporte.reportemantenimiento.EditarReporte"
-            android:label="@string/editar_reporte"/>
+            android:name=".EditarReporte"
+            android:label="@string/editar_reporte" />
         <activity
-            android:name="omniknow.soporte.reportemantenimiento.VerReporte"
+            android:name=".VerReporte"
             android:label="@string/detalles_de_reporte" />
         <activity
-            android:name="omniknow.soporte.reportemantenimiento.NuevoReporte"
+            android:name=".NuevoReporte"
             android:label="@string/nuevo_reporte" />
         <activity
-            android:name="omniknow.soporte.reportemantenimiento.ListaReportes"
+            android:name=".ListaReportes"
             android:label="@string/reportes_de_mantenimiento" />
-        <activity android:name="omniknow.soporte.reportemantenimiento.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

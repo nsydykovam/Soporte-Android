@@ -16,9 +16,9 @@ public class ReporteMantenimientoDao {
     final private String BASE = "SOPORTE_MANTENIMIENTO";
     final private String NUEVO_ID = "SELECT IFNULL(MAX(ID_REPORTE_MANTENIMIENTO),0)+1 FROM REPORTES_MANTENIMIENTOS";
     final private String VER = "SELECT * FROM REPORTES_MANTENIMIENTOS ORDER BY ID_REPORTE_MANTENIMIENTO DESC";
-    final private String ALTA = "INSERT INTO REPORTES_MANTENIMIENTOS VALUES(?,?,?,?,?,?,?,?,?)";
+    final private String ALTA = "INSERT INTO REPORTES_MANTENIMIENTOS VALUES(?,?,?,?,?,?,?,?,?,?)";
     final private String BAJA = "DELETE FROM REPORTES_MANTENIMIENTOS WHERE ID_REPORTE_MANTENIMIENTO = ?";
-    final private String CAMBIO = "UPDATE REPORTES_MANTENIMIENTOS SET ID_ESTADO_REPORTE= ?, ASUNTO = ?, DESCRIPCION = ?, SOLUCION = ? WHERE ID_REPORTE_MANTENIMIENTO = ?";
+    final private String CAMBIO = "UPDATE REPORTES_MANTENIMIENTOS SET ID_ESTADO_REPORTE= ?, ASUNTO = ?, DESCRIPCION = ?, SOLUCION = ?, HORAS = ? WHERE ID_REPORTE_MANTENIMIENTO = ?";
 
     public void alta(Context context, ReporteMantenimiento reporteMantenimiento) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(context, BASE, null, 1);
@@ -41,6 +41,7 @@ public class ReporteMantenimientoDao {
         s.bindString(7, reporteMantenimiento.getAsunto());
         s.bindString(8, reporteMantenimiento.getDescripcion());
         s.bindString(9, reporteMantenimiento.getSolucion());
+        s.bindLong(10, reporteMantenimiento.getHoras());
         s.executeInsert();
 
         s.close();
@@ -59,6 +60,7 @@ public class ReporteMantenimientoDao {
         s.bindString(3, reporteMantenimiento.getDescripcion());
         s.bindString(4, reporteMantenimiento.getSolucion());
         s.bindLong(5, reporteMantenimiento.getIdReporteMantenimiento());
+        s.bindLong(6, reporteMantenimiento.getHoras());
         s.executeUpdateDelete();
 
         s.close();
@@ -84,7 +86,7 @@ public class ReporteMantenimientoDao {
         Cursor fila = baseDeDatos.rawQuery(VER, null);
 
         while(fila.moveToNext())
-            ver.add(new ReporteMantenimiento(fila.getInt(0), fila.getInt(1), fila.getInt(2), fila.getInt(3), fila.getInt(4), Timestamp.valueOf(fila.getString(5)), fila.getString(6), fila.getString(7), fila.getString(8)));
+            ver.add(new ReporteMantenimiento(fila.getInt(0), fila.getInt(1), fila.getInt(2), fila.getInt(3), fila.getInt(4), Timestamp.valueOf(fila.getString(5)), fila.getString(6), fila.getString(7), fila.getString(8), fila.getInt(9)));
 
         fila.close();
         baseDeDatos.close();

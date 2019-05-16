@@ -21,4 +21,9 @@
     <string name="estado">Estado</string>
     <string name="tipo">Tipo</string>
     <string name="editar_reporte">Editar reporte</string>
+    <string name="programador_">Programador:</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasenia">Contraseña</string>
+    <string name="asignar_programador">Asignar programador</string>
+    <string name="horas_">Horas:</string>
 </resources>
