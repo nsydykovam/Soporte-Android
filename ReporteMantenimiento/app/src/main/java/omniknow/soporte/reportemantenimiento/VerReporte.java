@@ -13,12 +13,13 @@ import android.widget.Toast;
 import omniknow.soporte.reportemantenimiento.dao.ReporteMantenimientoDao;
 import omniknow.soporte.reportemantenimiento.dao.EstadoReporteDao;
 import omniknow.soporte.reportemantenimiento.dao.TipoMantenimientoDao;
+import omniknow.soporte.reportemantenimiento.dao.UsuarioDao;
 import omniknow.soporte.reportemantenimiento.extras.Constante;
 import omniknow.soporte.reportemantenimiento.modelo.ReporteMantenimiento;
 
 public class VerReporte extends AppCompatActivity {
-    TextView tvTitulo, tvFecha, tvTipo, tvEstado, tvDescripcion, tvSolucion, tvHoras;
-    Button bPagar, bEditar;
+    TextView tvTitulo, tvFecha, tvTipo, tvEstado, tvDescripcion, tvSolucion, tvHoras, tvProgramador;
+    Button bPagar, bEditar, bAsignar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class VerReporte extends AppCompatActivity {
 
         TipoMantenimientoDao tipoMantenimientoDao = new TipoMantenimientoDao();
         EstadoReporteDao estadoReporteDao = new EstadoReporteDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
 
         ReporteMantenimiento reporteMantenimiento = Constante.reporteActual;
 
@@ -34,9 +36,10 @@ public class VerReporte extends AppCompatActivity {
         tvFecha = (TextView) findViewById(R.id.tvFecha);
         tvTipo = (TextView) findViewById(R.id.tvTipo);
         tvEstado = (TextView) findViewById(R.id.tvEstado);
+        tvHoras = (TextView) findViewById(R.id.tvHoras);
         tvDescripcion = (TextView) findViewById(R.id.tvDescripcion);
         tvSolucion = (TextView) findViewById(R.id.tvSolucion);
-        tvHoras = (TextView) findViewById(R.id.tvHoras);
+        tvProgramador = (TextView) findViewById(R.id.tvProgramador);
         bPagar = (Button) findViewById(R.id.bPagar);
         bEditar = (Button) findViewById(R.id.bEditar);
 
@@ -53,11 +56,26 @@ public class VerReporte extends AppCompatActivity {
             tvSolucion.setText("El problema no ha sido solucionado.");
         else
             tvSolucion.setText(reporteMantenimiento.getSolucion());
-        if(reporteMantenimiento.getIdEstadoReporte() > 3) {
-            bPagar.setVisibility(View.GONE);
-            bEditar.setVisibility(View.GONE);
+        if(reporteMantenimiento.getIdUsuario() == 0) // No hay programador asignado
+            tvProgramador.setText("Ningún programador asignado.");
+        else {
+            tvProgramador.setText(usuarioDao.consulta(this, reporteMantenimiento.getIdUsuario()).getNombre());
         }
 
+        // Acciones para bloquear según el reporte
+        if(reporteMantenimiento.getIdEstadoReporte() > 2) { // Si el reporte está cerrado
+            bEditar.setVisibility(View.GONE);
+        }
+        if(reporteMantenimiento.getIdEstadoReporte() > 3) { // Si el reporte está pagado
+            bPagar.setVisibility(View.GONE);
+        }
+
+        // Acciones para bloquear según el usuario
+        if(Constante.usuarioActual.getTipo() == 5) { // Gerente de Mantenimiento
+        }
+        else if(Constante.usuarioActual.getTipo() == 6) { // Programador
+            bPagar.setVisibility(View.GONE); // No se puede pagar
+        }
 
     }
 
@@ -74,6 +92,7 @@ public class VerReporte extends AppCompatActivity {
                         reporteMantenimientoDao.baja(VerReporte.this, Constante.reporteActual);
                         Toast.makeText(VerReporte.this, "Reporte eliminado", Toast.LENGTH_LONG).show();
                         Intent i = new Intent(VerReporte.this, ListaReportes.class);
+                        finish();
                         startActivity(i);
                     }
                 })
@@ -82,8 +101,27 @@ public class VerReporte extends AppCompatActivity {
     }
 
     public void editar(View view) {
-        Intent i = new Intent(VerReporte.this, EditarReporte.class);
-        startActivity(i);
+        if(Constante.usuarioActual.getTipo() == 6) // Es programador
+        new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Editar reporte")
+            .setMessage("Si entra al editor del reporte, usted será el encargado del reporte.")
+            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent i = new Intent(VerReporte.this, EditarReporte.class);
+                    finish();
+                    startActivity(i);
+                }
+            })
+            .setNegativeButton("Cancelar", null)
+            .show();
+        else {
+            Intent i = new Intent(VerReporte.this, EditarReporte.class);
+            finish();
+            startActivity(i);
+        }
     }
 
     public void pagar(View view) {
@@ -103,5 +141,11 @@ public class VerReporte extends AppCompatActivity {
             Intent i = new Intent(VerReporte.this, ListaReportes.class);
             startActivity(i);
         }
+    }
+
+    public void cerrar(View view) {
+        finish();
+        Intent i = new Intent(VerReporte.this, ListaReportes.class);
+        startActivity(i);
     }
 }

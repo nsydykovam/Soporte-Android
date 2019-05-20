@@ -18,7 +18,7 @@ public class ReporteMantenimientoDao {
     final private String VER = "SELECT * FROM REPORTES_MANTENIMIENTOS ORDER BY ID_REPORTE_MANTENIMIENTO DESC";
     final private String ALTA = "INSERT INTO REPORTES_MANTENIMIENTOS VALUES(?,?,?,?,?,?,?,?,?,?)";
     final private String BAJA = "DELETE FROM REPORTES_MANTENIMIENTOS WHERE ID_REPORTE_MANTENIMIENTO = ?";
-    final private String CAMBIO = "UPDATE REPORTES_MANTENIMIENTOS SET ID_ESTADO_REPORTE= ?, ASUNTO = ?, DESCRIPCION = ?, SOLUCION = ?, HORAS = ? WHERE ID_REPORTE_MANTENIMIENTO = ?";
+    final private String CAMBIO = "UPDATE REPORTES_MANTENIMIENTOS SET ID_ESTADO_REPORTE= ?, ID_USUARIO = ?, ASUNTO = ?, DESCRIPCION = ?, SOLUCION = ?, HORAS = ? WHERE ID_REPORTE_MANTENIMIENTO = ?";
 
     public void alta(Context context, ReporteMantenimiento reporteMantenimiento) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(context, BASE, null, 1);
@@ -56,11 +56,12 @@ public class ReporteMantenimientoDao {
         SQLiteStatement s = baseDeDatos.compileStatement(CAMBIO);
         s.clearBindings();
         s.bindLong(1, reporteMantenimiento.getIdEstadoReporte());
-        s.bindString(2, reporteMantenimiento.getAsunto());
-        s.bindString(3, reporteMantenimiento.getDescripcion());
-        s.bindString(4, reporteMantenimiento.getSolucion());
-        s.bindLong(5, reporteMantenimiento.getIdReporteMantenimiento());
+        s.bindLong(2, reporteMantenimiento.getIdUsuario());
+        s.bindString(3, reporteMantenimiento.getAsunto());
+        s.bindString(4, reporteMantenimiento.getDescripcion());
+        s.bindString(5, reporteMantenimiento.getSolucion());
         s.bindLong(6, reporteMantenimiento.getHoras());
+        s.bindLong(7, reporteMantenimiento.getIdReporteMantenimiento());
         s.executeUpdateDelete();
 
         s.close();

@@ -26,4 +26,5 @@
     <string name="contrasenia">Contraseña</string>
     <string name="asignar_programador">Asignar programador</string>
     <string name="horas_">Horas:</string>
+    <string name="cerrar">Cerrar</string>
 </resources>
