@@ -55,6 +55,9 @@ public class EditarReporte extends AppCompatActivity {
         if(Constante.usuarioActual.getTipo() != 5) { // Si el usuario no es Gerente de mantenimiento
             tvProgramador.setVisibility(View.GONE);
             sProgramador.setVisibility(View.GONE);
+        } else { // Se aplica cuando es el Gerente de Mantenimiento
+            etSolucion.setEnabled(false);
+            sEstado.setEnabled(false);
         }
 
         sEstado.setSelection(Constante.reporteActual.getIdEstadoReporte() - 1);
@@ -83,9 +86,15 @@ public class EditarReporte extends AppCompatActivity {
         List<String> etiquetas = new ArrayList<>();
         if(tipo == 0) {
             estados = estadoReporteDao.ver(this);
-            for(EstadoReporte i : estados)
-                if(i.getIdEstadoReporte() < 3)
-                    etiquetas.add(i.getNombre());
+            if(Constante.usuarioActual.getTipo() == 5) { // Gerente de mantenimiento
+                for(EstadoReporte i : estados)
+                    if(i.getIdEstadoReporte() < 3) // Puede marcar hasta resuelto
+                        etiquetas.add(i.getNombre());
+            } else if(Constante.usuarioActual.getTipo() == 6) { // Programador
+                for(EstadoReporte i : estados)
+                    if(i.getIdEstadoReporte() < 3) // Sólo puede marcar hasta resuelto
+                        etiquetas.add(i.getNombre());
+            }
         }
         else if(tipo == 1) {
             tipos = tipoMantenimientoDao.ver(this);
