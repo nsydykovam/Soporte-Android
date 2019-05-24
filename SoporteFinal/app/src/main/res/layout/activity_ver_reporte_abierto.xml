@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".verReporteAbierto">
+
+    <LinearLayout
+        android:layout_width="410dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ctxtUsuario"
+            android:layout_width="79dp"
+            android:layout_height="59dp"
+            android:text="@string/usuario_" />
+
+        <TextView
+            android:id="@+id/txtUser"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ctxtFecha"
+            android:layout_width="295dp"
+            android:layout_height="67dp"
+            android:layout_weight="1"
+            android:text="@string/fecha" />
+
+        <TextView
+            android:id="@+id/txtFecha"
+            android:layout_width="491dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/ctxtProblema"
+            android:layout_width="84dp"
+            android:layout_height="53dp"
+            android:text="@string/problema_" />
+
+        <TextView
+            android:id="@+id/txtProblema"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/comboInges"
+            android:layout_width="179dp"
+            android:layout_height="46dp" />
+
+        <Button
+            android:id="@+id/btnAsignar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/asignar" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="137dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/Solución"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/solucion_" />
+
+        <EditText
+            android:id="@+id/txtSolucion"
+            android:layout_width="wrap_content"
+            android:layout_height="142dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/escriba_la_solucion_a_detalle"
+            android:inputType="textPersonName" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMantenimiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/enviar_a_mantenimiento" />
+
+        <Button
+            android:id="@+id/btnResponder"
+            android:layout_width="228dp"
+            android:layout_height="wrap_content"
+            android:text="@string/guardar_solucion" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.jorgeantoniojuarezleyva.soporte3.MainActivity">
+    <item
+        android:id="@+id/Abierto"
+        android:title="Abiertos" />
+    <item
+        android:id="@+id/Cerrado"
+        android:title="Cerrados" />
+    <item
+        android:id="@+id/Mantenimiento"
+        android:title="Mantenimiento" />
+    <item
+        android:id="@+id/Solucionado"
+        android:title="Solucionados" />
+    <item
+        android:id="@+id/close"
+        android:title="Cerrar Sesión" />
+</menu>
