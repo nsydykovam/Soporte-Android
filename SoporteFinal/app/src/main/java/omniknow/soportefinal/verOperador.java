@@ -35,7 +35,7 @@ public class verOperador extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_operador);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
         FloatingActionButton btnMas = (FloatingActionButton) findViewById(R.id.btnMas);
         btnMas.setOnClickListener(new View.OnClickListener() {
