@@ -126,7 +126,7 @@ public class verGerente extends AppCompatActivity {
                 estadoLista = "SOLUCIONADO";
                 break;
             case R.id.close:
-                Intent int1 = new Intent(verGerente.this,InicioSesion.class);
+                Intent int1 = new Intent(verGerente.this,MainActivity.class);
                 startActivity(int1);
 
         }

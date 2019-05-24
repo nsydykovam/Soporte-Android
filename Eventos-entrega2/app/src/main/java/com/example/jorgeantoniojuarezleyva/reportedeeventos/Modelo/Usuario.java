@@ -3,16 +3,18 @@ package com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo;
 public class Usuario {
     private int idUsuario;
     private String usuario;
-    private String contraseña;
+    private String contrasena;
     private String nombre;
     private int tipo;
+    private boolean iniciado;
 
-    public Usuario(int idUsuario, String usuario, String contraseña, String nombre, int tipo) {
+    public Usuario(int idUsuario, String usuario, String contrasena, String nombre, int tipo, boolean iniciado) {
         this.idUsuario = idUsuario;
         this.usuario = usuario;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
         this.nombre = nombre;
         this.tipo = tipo;
+        this.iniciado = iniciado;
     }
 
     public int getIdUsuario() {
@@ -31,12 +33,12 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getNombre() {
@@ -55,14 +57,23 @@ public class Usuario {
         this.tipo = tipo;
     }
 
+    public boolean isIniciado() {
+        return iniciado;
+    }
+
+    public void setIniciado(boolean iniciado) {
+        this.iniciado = iniciado;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
                 "idUsuario=" + idUsuario +
                 ", usuario='" + usuario + '\'' +
-                ", contraseña='" + contraseña + '\'' +
+                ", contrasena='" + contrasena + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", tipo=" + tipo +
+                ", iniciado=" + iniciado +
                 '}';
     }
 }

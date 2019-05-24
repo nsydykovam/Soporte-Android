@@ -113,7 +113,7 @@ public class verInge extends AppCompatActivity {
                 estadoLista = "SOLUCIONADO";
                 break;
             case R.id.close:
-                Intent int1 = new Intent(verInge.this,InicioSesion.class);
+                Intent int1 = new Intent(verInge.this,MainActivity.class);
                 startActivity(int1);
 
         }

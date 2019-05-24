@@ -12,8 +12,13 @@ import android.widget.Toast;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.ImpDAO.impEvento;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.ImpDAO.impUsuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.Evento;
+import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.ReporteMantenimiento;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.Usuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.sUsuario;
+import com.example.jorgeantoniojuarezleyva.reportedeeventos.dao.ReporteMantenimientoDao;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class verReporteSolucionado extends AppCompatActivity {
 
@@ -28,6 +33,7 @@ public class verReporteSolucionado extends AppCompatActivity {
     private Button btnCerrar;
 
     private int idEvento;
+    private int idReporteMantenimiento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,11 @@ public class verReporteSolucionado extends AppCompatActivity {
                     Intent int1 = new Intent(verReporteSolucionado.this, verInge.class);
                     startActivity(int1);
                 }
+                // Cerrar el reporte de mantenimiento
+                ReporteMantenimientoDao reporteMantenimientoDao = new ReporteMantenimientoDao();
+                ReporteMantenimiento reporteMantenimiento = reporteMantenimientoDao.consulta(verReporteSolucionado.this, idReporteMantenimiento);
+                reporteMantenimiento.setIdEstadoReporte(3); // Cerrado
+                reporteMantenimientoDao.cambio(verReporteSolucionado.this, reporteMantenimiento);
             }
         });
 
@@ -72,7 +83,17 @@ public class verReporteSolucionado extends AppCompatActivity {
         txtUsuario.setText(user.getNombre() + "");
         txtProblema.setText(event.getProblema() + "");
         txtFecha.setText(event.getFecha() + "");
-        txtSolucionM.setText("Alguna solución de mantenimiento");
+
+        // Obtener la solución de mantenimiento
+        ReporteMantenimientoDao reporteMantenimientoDao = new ReporteMantenimientoDao();
+        List<ReporteMantenimiento> reportesMantenimientos = reporteMantenimientoDao.ver(this);
+        for(ReporteMantenimiento rm : reportesMantenimientos) {
+            if(rm.getIdReporteEvento() == idEvento) {
+                txtSolucionM.setText(rm.getSolucion());
+                idReporteMantenimiento = rm.getIdReporteMantenimiento();
+                break;
+            }
+        }
 
     }
 }

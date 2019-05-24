@@ -14,8 +14,12 @@ import android.widget.Toast;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.ImpDAO.impEvento;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.ImpDAO.impUsuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.Evento;
+import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.ReporteMantenimiento;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.Usuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.sUsuario;
+import com.example.jorgeantoniojuarezleyva.reportedeeventos.dao.ReporteMantenimientoDao;
+
+import java.sql.Timestamp;
 
 public class verReporteAbierto extends AppCompatActivity {
 
@@ -108,6 +112,13 @@ public class verReporteAbierto extends AppCompatActivity {
             public void onClick(View v) {
                 impEvento impEvent = new impEvento(verReporteAbierto.this);
                 String res = impEvent.enviarMantenimiento(idEvento);
+
+                // Se genera un reporte de mantenimiento
+                ReporteMantenimiento reporteMantenimiento = new ReporteMantenimiento(0, idEvento, 1, 2, 0,  new Timestamp(new java.util.Date().getTime()), "", event.getProblema(), "", 0, true);
+                // Y se guarda
+                ReporteMantenimientoDao reporteMantenimientoDao = new ReporteMantenimientoDao();
+                reporteMantenimientoDao.alta(verReporteAbierto.this, reporteMantenimiento);
+
                 Toast.makeText(verReporteAbierto.this,res,Toast.LENGTH_SHORT).show();
                 if (sUsuario.tipo == 3) {
                     Intent int1 = new Intent(verReporteAbierto.this, verGerente.class);

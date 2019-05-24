@@ -1,16 +1,12 @@
 package com.example.jorgeantoniojuarezleyva.reportedeeventos.ImpDAO;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
-import com.example.jorgeantoniojuarezleyva.reportedeeventos.InicioSesion;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.Usuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.Modelo.sUsuario;
 import com.example.jorgeantoniojuarezleyva.reportedeeventos.SQLite;
-import com.example.jorgeantoniojuarezleyva.reportedeeventos.altaOperador;
 
 public class impUsuario {
     Context contxt = null;
@@ -31,7 +27,7 @@ public class impUsuario {
             int id = res.getInt(0);
             String nombre = res.getString(3);
             int tipo = res.getInt(4);
-            Usuario user1 = new Usuario(id,user,pass,nombre,tipo);
+            Usuario user1 = new Usuario(id,user,pass,nombre,tipo,false);
             sUsuario.idUsuario = id;
             sUsuario.usuario = user;
             sUsuario.contraseña = pass;
@@ -56,7 +52,7 @@ public class impUsuario {
                 String contraseña = (res.getString(2));
                 String nombre = (res.getString(3));
                 int tipo = (res.getInt(4));
-                user1 = new Usuario(idUsuario,usuario,contraseña,nombre,tipo);
+                user1 = new Usuario(idUsuario,usuario,contraseña,nombre,tipo,false);
             }
         }
 
@@ -76,7 +72,7 @@ public class impUsuario {
                 String contraseña = (res.getString(2));
                 String nombre = (res.getString(3));
                 int tipo = (res.getInt(4));
-                user1 = new Usuario(idUsuario,usuario,contraseña,nombre,tipo);
+                user1 = new Usuario(idUsuario,usuario,contraseña,nombre,tipo,false);
             }
         }
 

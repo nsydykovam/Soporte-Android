@@ -9,13 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InicioSesion">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".EditarReporte"
+            android:label="@string/editar_reporte" />
+        <activity
+            android:name=".VerReporte"
+            android:label="@string/detalles_de_reporte" />
+        <activity
+            android:name=".NuevoReporte"
+            android:label="@string/nuevo_reporte" />
+        <activity
+            android:name=".ListaReportes"
+            android:label="@string/reportes_de_mantenimiento" />
+
         <activity
             android:name=".verOperador"
             android:label="@string/title_activity_ver_operador"
